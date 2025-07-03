@@ -27,7 +27,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: yourdockerhubusername/college-project:latest
+        tags: hritikpatle23/college-project:latest
 
     - name: 📦 Create build artifact
       run: |
