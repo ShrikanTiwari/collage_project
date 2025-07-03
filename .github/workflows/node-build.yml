@@ -1,0 +1,36 @@
+name: ScoreSnap Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🛎️ Checkout code
+      uses: actions/checkout@v3
+
+    - name: 🧰 Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+
+    - name: 📦 Install dependencies
+      run: npm install
+
+    - name: 🛠️ Run optional build step
+      run: |
+        echo "No explicit build step defined"
+        echo "You can add frontend bundling or other commands here"
+
+    - name: ✅ Run tests (optional)
+      run: echo "Add tests here if needed"
+
+    - name: 🚀 Archive project (optional packaging)
+      run: |
+        mkdir -p build
+        cp -R public server.js package.json build/
