@@ -1,0 +1,38 @@
+name: ScoreSnap Demo Build
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: collage_project  # Adjust if your project folder name is different
+
+    steps:
+    - name: 🛎️ Checkout code
+      uses: actions/checkout@v3
+
+    - name: 🧰 Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: 📦 Install dependencies
+      run: npm install
+
+    - name: 🚀 Prepare build output
+      run: |
+        mkdir -p build
+        cp server.js package.json build/
+        cp -R public build/
+
+    - name: 📥 Upload ScoreSnap build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: scoresnap-demo
+        path: collage_project/build/
