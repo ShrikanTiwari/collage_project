@@ -1,10 +1,9 @@
-name: ScoreSnap Build
+name: ScoreSnap Demo Build
 
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -14,23 +13,28 @@ jobs:
     - name: 🛎️ Checkout code
       uses: actions/checkout@v3
 
+    - name: 📦 Change to project directory
+      run: cd var/collage_project
+
     - name: 🧰 Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18.x'
+        node-version: '18'
 
     - name: 📦 Install dependencies
-      run: npm install
-
-    - name: 🛠️ Run optional build step
       run: |
-        echo "No explicit build step defined"
-        echo "You can add frontend bundling or other commands here"
+        cd var/collage_project
+        npm install
 
-    - name: ✅ Run tests (optional)
-      run: echo "Add tests here if needed"
-
-    - name: 🚀 Archive project (optional packaging)
+    - name: 🚀 Prepare build output
       run: |
+        cd var/collage_project
         mkdir -p build
-        cp -R public server.js package.json build/
+        cp server.js package.json package-lock.json build/
+        cp -R public build/
+
+    - name: 📥 Upload ScoreSnap build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: scoresnap-demo
+        path: var/collage_project/build/
