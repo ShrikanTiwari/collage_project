@@ -13,22 +13,18 @@ jobs:
     - name: 🛎️ Checkout code
       uses: actions/checkout@v3
 
-    - name: 🧰 Set up Node.js
-      uses: actions/setup-node@v3
+    - name: 📦 Create demo artifact folder
+      run: |
+        mkdir -p demo-artifact
+        echo "Hello, this is a demo file!" > demo-artifact/readme.txt
+        echo "Generated on $(date)" > demo-artifact/timestamp.txt
+
+    - name: 📥 Upload demo artifact
+      uses: actions/upload-artifact@v4
       with:
-        node-version: '18'
+        name: college-submission-demo
+        path: demo-artifact/
 
-    - name: 📦 Install dependencies
-      run: |
-        cd collage_project
-        npm install
-
-    - name: 🚀 Prepare build output
-      run: |
-        cd collage_project
-        mkdir -p build
-        cp server.js package.json package-lock.json build/
-        cp -R public build/
 
     - name: 📥 Upload ScoreSnap build artifact
       uses: actions/upload-artifact@v3
