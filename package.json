@@ -1,0 +1,26 @@
+{
+  "name": "collage_project",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShrikanTiwari/collage_project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShrikanTiwari/collage_project/issues"
+  },
+  "homepage": "https://github.com/ShrikanTiwari/collage_project#readme",
+  "dependencies": {
+    "events": "^3.3.0",
+    "express": "^5.1.0",
+    "mysql": "^2.18.1"
+  },
+  "description": ""
+}

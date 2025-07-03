@@ -1,0 +1,43 @@
+name: Build and Push Docker Image with Artifact
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🛎️ Checkout code
+      uses: actions/checkout@v3
+
+    - name: 🧰 Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: 🔑 Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: hritikpatle23
+        password: 2311@Ritik
+
+    - name: 🐳 Build and Push Docker Image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: hritikpatle23/college-project:latest
+
+    - name: 📦 Create build artifact
+      run: |
+        mkdir -p build-artifact
+        cp Dockerfile build-artifact/
+        cp server.js package.json package-lock.json build-artifact/
+        cp -R public build-artifact/
+
+    - name: 📥 Upload build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: college-project-build
+        path: build-artifact/
