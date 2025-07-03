@@ -1,0 +1,33 @@
+name: ScoreSnap Demo Build
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🛎️ Checkout code
+      uses: actions/upload-artifact@v4
+
+    - name: 📦 Create demo artifact folder
+      run: |
+        mkdir -p demo-artifact
+        echo "Hello, this is a demo file!" > demo-artifact/readme.txt
+        echo "Generated on $(date)" > demo-artifact/timestamp.txt
+
+    - name: 📥 Upload demo artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: college-submission-demo
+        path: demo-artifact/
+
+
+    - name: 📥 Upload ScoreSnap build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: scoresnap-demo
+        path: collage_project/build/
