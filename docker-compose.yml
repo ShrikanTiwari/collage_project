@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mycollegeacr.azurecr.io/scoresnap:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - appdata:/app/public
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=shrikant_47
+      - DB_NAME=scoresnap
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: shrikant_47
+      MYSQL_DATABASE: scoresnap
+    volumes:
+      - dbdata:/var/lib/mysql
+
+volumes:
+  appdata:
+  dbdata:
